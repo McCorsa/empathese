@@ -20,6 +20,6 @@
 
 <div class="flex flex-col gap-4">
     {#each form?.suggestions as suggestion, i}
-        <SuggestedResponse index={i + 1} suggestion={suggestion.response} />
+        <SuggestedResponse index={i + 1} suggestion={suggestion} />
     {/each}
 </div>
