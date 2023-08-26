@@ -44,7 +44,7 @@
 
                         const response = await fetch("/api/dictation", {
                             method: "POST",
-                            body: audioURL,
+                            body: blob,
                             headers: {'content-type': 'plain/text'}
                         })
 
