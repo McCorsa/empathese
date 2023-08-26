@@ -25,9 +25,9 @@ export const actions = {
         const responseFormat = `{
             translation: <your interpretation of their response as a string>,
             suggestions: [
-                <first ${responseQuality} suggestion for a response as string>,
-                <second ${responseQuality} suggestion for a response as string>,
-                <third ${responseQuality} suggestion for a response as string>,
+                <first ${responseQuality} suggestion for a response that I could say to them as string>,
+                <second ${responseQuality} suggestion for a response that I could say to them as string>,
+                <third ${responseQuality} suggestion for a response that I could say to them as string>,
             ]
         }`;
 
