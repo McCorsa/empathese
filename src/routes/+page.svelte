@@ -1,10 +1,10 @@
 <script lang="ts">
+    import AppBar from '$lib/AppBar.svelte';
+    import DialogueInput from '$lib/DialogueInput.svelte';
     import type {PageData} from './$types';
 
     export let data: PageData;
 </script>
 
-<h1 class="text-3xl font-black">Welcome to SvelteKit</h1>
-<p>My message is "{data.message}"</p>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
-<a href="/" class="btn btn-primary">test</a>
+<AppBar title="EmpathEase" />
+<DialogueInput />
