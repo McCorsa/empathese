@@ -1,4 +1,6 @@
 <script lang="ts">
+    import { goto } from "$app/navigation";
+
     export var index: number;
     export var suggestion: string;
 </script>
@@ -9,6 +11,6 @@
     </div>
     <div class="flex flex-col gap-1 items-start">
         <div class="grow">{suggestion}</div>
-        <button class="btn btn-primary btn-sm">Use Response</button>
+        <a class="btn btn-primary btn-sm" href={`/?you=${suggestion}`}>Use Response</a>
     </div>
 </div>
