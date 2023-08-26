@@ -1,6 +1,6 @@
-import {error} from "@sveltejs/kit";
+import { error } from "@sveltejs/kit";
 import type { RequestHandler } from "./$types";
-import {OpenAI} from "openai";
+import { OpenAI } from "openai";
 import dotenv from "dotenv";
 import path from 'path';
 import fs from 'fs';
@@ -19,15 +19,15 @@ export const POST: RequestHandler = async ({ url, request }) => {
         const fileName = 'audio.ogg'; // Change this to the desired filename
         const filePath = path.join('./static/', fileName);
         try {
-          const buffer = await blob.arrayBuffer();
-          await fs.promises.writeFile(filePath, new Uint8Array(buffer));
-          console.log('Blob saved as file:', filePath);
+            const buffer = await blob.arrayBuffer();
+            await fs.promises.writeFile(filePath, new Uint8Array(buffer));
+            console.log('Blob saved as file:', filePath);
         } catch (error) {
-          console.error('Error saving blob as file:', error);
-          return {
-            status: 500,
-            body: 'Error saving blob as file',
-          };
+            console.error('Error saving blob as file:', error);
+            return {
+                status: 500,
+                body: 'Error saving blob as file',
+            };
         }
     }
 
@@ -35,6 +35,6 @@ export const POST: RequestHandler = async ({ url, request }) => {
         model: 'whisper-1',
         file: fs.createReadStream('./static/audio.ogg'),
     });
-    
+
     return new Response(String(response.text));
 }
