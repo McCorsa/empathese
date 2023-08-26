@@ -3,5 +3,5 @@
 </script>
 
 <header>
-    <h1 class="text-2xl text-center mb-4">{title}</h1>
+    <h1 class="text-2xl text-center mb-2 font-bold">{title}</h1>
 </header>

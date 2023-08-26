@@ -2,10 +2,12 @@
     export let disabled = false;
 </script>
 
-<form action="/">
+<form method="POST" action="/result" class="my-2">
     <label for="" class="font-bold">You said</label>
-    <input type="text" class="input input-bordered w-full mb-3 rounded-lg" placeholder="What did you say?" disabled={disabled} />
+    <input type="text" class={`input input-bordered w-full mb-3 rounded-lg ${disabled && 'input-sm'}`} placeholder="What did you say?" disabled={disabled} />
     <label for="" class="font-bold">They said</label>
-    <input type="text" class="input input-bordered w-full mb-3 rounded-lg" placeholder="What did they say?" disabled={disabled} />
-    <button class="btn btn-neutral w-full rounded-lg">Submit</button>
+    <input type="text" class={`input input-bordered w-full mb-3 rounded-lg ${disabled && 'input-sm'}`} placeholder="What did they say?" disabled={disabled} />
+    {#if !disabled}
+        <button class="btn btn-neutral w-full rounded-lg">Submit</button>
+    {/if}
 </form>
