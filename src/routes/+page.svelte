@@ -5,7 +5,7 @@
     import { youSaid, theySaid } from '../stores/myStore';
     import { onMount } from 'svelte';
 
-    let youSaidVal: string;
+    let youSaidVal: string, theySaidVal: string;
     let loading = false;
 
     // Subscribe to the store changes on component mount
@@ -13,8 +13,11 @@
         const unsubscribeYouSaid = youSaid.subscribe(value => {
             youSaidVal = value;
         });
+        const unsubscribeTheySaid = theySaid.subscribe(value => {
+            theySaidVal = value;
+        });
 
-        return unsubscribeYouSaid;
+        return unsubscribeTheySaid;
     });
 
     const handleSubmit = () => {
@@ -28,7 +31,7 @@
     <label for="yourMessage" class="font-bold">You said</label>
     <input name="yourMessage" type="text" class={`input input-bordered w-full mb-3`} placeholder="What did you say?" bind:value={$youSaid} />
     <label for="theirMessage" class="font-bold">They said</label>
-    <input name="theirMessage" type="text" class={`input input-bordered w-full mb-3`} placeholder="What did they say?" />
+    <input name="theirMessage" type="text" class={`input input-bordered w-full mb-3`} placeholder="What did they say?" bind:value={$theySaid} />
     <div class="collapse bg-base-200 mb-3">
         <input type="checkbox" /> 
         <div class="collapse-title text-xl font-medium">

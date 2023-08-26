@@ -8,7 +8,7 @@
     let suggested = "This is a really really really long string that sits within the suggested response and can be displayed several times to provide some kind of insightful advice to those who require it."
 </script>
 
-<AppBar title="Translation" back />
+<AppBar title="Translation" back yourMessage={form?.yourMessage} theirMessage={form?.theirMessage} />
 
 <DialogueInput disabled={true} yourMessage={form?.yourMessage} theirMessage={form?.theirMessage} />
 

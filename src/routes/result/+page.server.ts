@@ -6,7 +6,7 @@ dotenv.config();
 const openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY,
     organization: process.env.OPENAI_ORG_ID
-  });
+});
 
 export const actions = {
     default: async ({ cookies, request }) => {
