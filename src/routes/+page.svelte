@@ -112,7 +112,7 @@
 
 <AppBar title="EmpathEase" />
 
-<form method="POST" action="/result" class="my-2 flex flex-col">
+<form on:submit={handleSubmit} method="POST" action="/result" class="my-2 flex flex-col">
     <label for="yourMessage" class="font-bold">You said</label>
     <div class="join join-horizontal">
         <input name="yourMessage" type="text" class={`input input-bordered w-full mb-3 join-item`} placeholder="What did you say?" bind:value={youSaid} readonly={loading} />
@@ -165,7 +165,7 @@
             </div>
         </div>
       </div>
-    <button type="submit" class="btn btn-block btn-primary rounded-lg" on:click={handleSubmit} disabled={loading}>
+    <button type="submit" class="btn btn-block btn-primary rounded-lg" disabled={loading}>
         {#if loading}
             <span class="loading loading-dots loading-lg"></span>
         {:else}
