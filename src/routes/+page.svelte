@@ -6,11 +6,12 @@
     import { onMount } from 'svelte';
 
     let storeValue: string;
+    let loading = false;
 
     // Subscribe to the store changes on component mount
     onMount(() => {
         const unsubscribe = myStore.subscribe(value => {
-        storeValue = value;
+            storeValue = value;
         });
 
         return unsubscribe;
@@ -33,10 +34,9 @@
             <div class="flex flex-col md:flex-row items-center gap-2">
                 <label for="relationship" class="font-bold">Relationship</label>
                 <select class="select w-full" name="relationship">
-                    <option disabled selected>Choose your relationship</option>
+                    <option selected>Partner</option>
                     <option>Friend</option>
                     <option>Family</option>
-                    <option>Partner</option>
                     <option>Acquaintance</option>
                     <option>Colleague</option>
                     <option>Other / General</option>
@@ -66,5 +66,11 @@
             </div>
         </div>
       </div>
-    <button type="submit" class="btn btn-block btn-primary rounded-lg">Submit</button>
+    <button type="submit" class="btn btn-block btn-primary rounded-lg" on:click={() => loading = true} disabled={loading}>
+        {#if loading}
+            <span class="loading loading-dots loading-lg"></span>
+        {:else}
+            Submit
+        {/if}
+    </button>
 </form>
