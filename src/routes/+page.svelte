@@ -4,6 +4,7 @@
     export let data: PageData;
 </script>
 
-<h1>Welcome to SvelteKit</h1>
+<h1 class="text-3xl font-black">Welcome to SvelteKit</h1>
 <p>My message is "{data.message}"</p>
 <p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<a href="/" class="btn btn-primary">test</a>
