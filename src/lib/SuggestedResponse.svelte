@@ -1,6 +1,6 @@
 <script lang="ts">
     import { goto } from "$app/navigation";
-    import { myStore } from '../stores/myStore';
+    import { youSaid } from '../stores/myStore';
 
     export var index: number;
     export var suggestion: string;
@@ -12,6 +12,6 @@
     </div>
     <div class="flex flex-col gap-1 items-start">
         <div class="grow">{suggestion}</div>
-        <button class="btn btn-primary btn-sm" on:click={() => {myStore.set(suggestion); goto("/")}}>Use Response</button>
+        <button class="btn btn-primary btn-sm" on:click={() => {youSaid.set(suggestion); goto("/")}}>Use Response</button>
     </div>
 </div>

@@ -2,27 +2,31 @@
     import AppBar from '$lib/AppBar.svelte';
     import DialogueInput from '$lib/DialogueInput.svelte';
     
-    import { myStore } from '../stores/myStore';
+    import { youSaid, theySaid } from '../stores/myStore';
     import { onMount } from 'svelte';
 
-    let storeValue: string;
+    let youSaidVal: string;
     let loading = false;
 
     // Subscribe to the store changes on component mount
     onMount(() => {
-        const unsubscribe = myStore.subscribe(value => {
-            storeValue = value;
+        const unsubscribeYouSaid = youSaid.subscribe(value => {
+            youSaidVal = value;
         });
 
-        return unsubscribe;
+        return unsubscribeYouSaid;
     });
+
+    const handleSubmit = () => {
+        loading = true;
+    }
 </script>
 
 <AppBar title="EmpathEase" />
 
 <form method="POST" action="/result" class="my-2">
     <label for="yourMessage" class="font-bold">You said</label>
-    <input name="yourMessage" type="text" class={`input input-bordered w-full mb-3`} placeholder="What did you say?" bind:value={storeValue} />
+    <input name="yourMessage" type="text" class={`input input-bordered w-full mb-3`} placeholder="What did you say?" bind:value={$youSaid} />
     <label for="theirMessage" class="font-bold">They said</label>
     <input name="theirMessage" type="text" class={`input input-bordered w-full mb-3`} placeholder="What did they say?" />
     <div class="collapse bg-base-200 mb-3">
@@ -66,7 +70,7 @@
             </div>
         </div>
       </div>
-    <button type="submit" class="btn btn-block btn-primary rounded-lg" on:click={() => loading = true} disabled={loading}>
+    <button type="submit" class="btn btn-block btn-primary rounded-lg" on:click={handleSubmit} disabled={loading}>
         {#if loading}
             <span class="loading loading-dots loading-lg"></span>
         {:else}
