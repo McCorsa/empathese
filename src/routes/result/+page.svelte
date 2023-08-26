@@ -25,7 +25,7 @@
     }
 </script>
 
-<AppBar title="Translation" back yourMessage={form?.yourMessage} theirMessage={form?.theirMessage} />
+<AppBar title="Results" back yourMessage={form?.yourMessage} theirMessage={form?.theirMessage} />
 
 <DialogueInput disabled={true} yourMessage={form?.yourMessage} theirMessage={form?.theirMessage} />
 
