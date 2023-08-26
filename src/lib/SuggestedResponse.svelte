@@ -4,6 +4,12 @@
 
     export var index: number;
     export var suggestion: string;
+
+    const useSuggestion = () => {
+        sessionStorage.setItem("youSaid", suggestion);
+        sessionStorage.setItem("theySaid", "");
+        goto("/");
+    }
 </script>
 
 <div class="flex flex-row items-start gap-3">
@@ -12,6 +18,6 @@
     </div>
     <div class="flex flex-col gap-1 items-start">
         <div class="grow">{suggestion}</div>
-        <button class="btn btn-primary btn-sm" on:click={() => {youSaid.set(suggestion); goto("/")}}>Use Response</button>
+        <button class="btn btn-primary btn-sm" on:click={useSuggestion}>Use Response</button>
     </div>
 </div>
