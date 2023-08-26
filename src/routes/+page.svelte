@@ -48,7 +48,7 @@
                             headers: {'content-type': 'plain/text'}
                         })
 
-                        console.log(await response.text());
+                        youSaid = await response.text();
                     }
 
                     mediaRecorder.ondataavailable = (e) => {
@@ -68,14 +68,44 @@
     }
 
     const recordThem = () => {
-        if (!recordingYou) {
-            recordingYou = true;
+        if (!recordingThem) {
+            recordingThem = true;
             // start recording in here
+            navigator.mediaDevices
+                .getUserMedia({audio: true})
+                .then((stream) => {
+                    mediaRecorder = new MediaRecorder(stream);
+
+                    mediaRecorder.start()
+
+                    mediaRecorder.onstop = async (e) => {
+                        const blob = new Blob(chunks, { type: "audio/ogg; codecs=opus" });
+                        chunks = [];
+                        const audioURL = URL.createObjectURL(blob);
+                        console.log(audioURL);
+
+                        const response = await fetch("/api/dictation", {
+                            method: "POST",
+                            body: blob,
+                            headers: {'content-type': 'plain/text'}
+                        })
+
+                        theySaid = await response.text();
+                    }
+
+                    mediaRecorder.ondataavailable = (e) => {
+                        chunks.push(e.data);
+                    };
+                })
+                .catch((err) => {
+                    console.error(`The following error occurred: ${err}`);
+                });
         }
         else {
             // handle stopping the recording
             // when finished, set youSaid to result
-            recordingYou = false;
+            mediaRecorder.stop();
+            recordingThem = false;
         }
     }
 </script>
