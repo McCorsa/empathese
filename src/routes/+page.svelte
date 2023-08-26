@@ -43,9 +43,24 @@
                 </select>
             </div>
             <div class="flex flex-col md:flex-row items-center gap-2">
-                <label for="relationship" class="font-bold">Quality</label>
+                <label for="tone" class="font-bold">Tone of Voice</label>
+                <select class="select w-full" name="tone">
+                    <option disabled selected>Choose the tone of the conversation</option>
+                    <option>Casual</option>
+                    <option>Happy</option>
+                    <option>Playful</option>
+                    <option>Angry</option>
+                    <option>Sad</option>
+                    <option>Bored</option>
+                    <option>Confused</option>
+                    <option>Serious</option>
+                    <option>Unsure</option>
+                </select>
+            </div>
+            <div class="flex flex-col md:flex-row items-center gap-2">
+                <label for="quality" class="font-bold">Quality</label>
                 <div class="join w-full md:w-auto md:mx-auto">
-                    <input class="join-item btn grow border-primary md:px-8" type="radio" name="quality" aria-label="Helpful" />
+                    <input class="join-item btn grow border-primary md:px-8" type="radio" name="quality" aria-label="Helpful" checked />
                     <input class="join-item btn grow border-primary md:px-8" type="radio" name="quality" aria-label="Stupid" />
                 </div>
             </div>
