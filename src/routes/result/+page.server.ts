@@ -24,20 +24,13 @@ export const actions = {
         const relationship = data.get("relationship")?.toString().toLowerCase();
         const responseQuality = data.get("quality")?.toString().toLowerCase();
 
+        // Quality of response
         let responseQualityString = `You are a helpful conversation companion who helps me understand my conversation with my ${relationship} and uncover what my ${relationship} really means when they says something to me.`;
         if (responseQuality == "brutal") {
             responseQualityString = `You are a helpful conversation companion who helps me understand my conversation with my ${relationship} BUT you give the opposite intrepertation in a brutally harsh manner to what they actually meant and give insulting response suggestions.`;
-            // responseQualityString = `You a friend who gives me horrible conversation advice. You have no clue what you're talking about and give answers that completely miss the point.`;
         }
 
-        // const responseFormat = `{
-        //     translation: <your interpretation of their response as a string>,
-        //     suggestions: [
-        //         <first ${responseQuality} suggestion for a response that I could say to them as string>,
-        //         <second ${responseQuality} suggestion for a response that I could say to them as string>,
-        //         <third ${responseQuality} suggestion for a response that I could say to them as string>,
-        //     ]
-        // }`;
+        // Response format
         const responseFormat = `<your interpretation of their response as a string>;<first ${responseQuality} suggestion for a response that I could say to them as string>;<second ${responseQuality} suggestion for a response that I could say to them as string>;<third ${responseQuality} suggestion for a response that I could say to them as string>`;
 
         // Setting up the scenario
@@ -54,7 +47,6 @@ export const actions = {
 
         // API call
         const chatCompletion = await openai.chat.completions.create({
-            // model: "gpt-3.5-turbo",
             model: "gpt-4",
             messages: [
                 {"role": "system", "content": systemMessage},
