@@ -4,18 +4,22 @@
     
     import { onMount } from 'svelte';
 
-    let youSaid: string, theySaid: string;
+    let youSaid: string, theySaid: string, relationship: string, quality: string;
     let loading = false;
 
     // Subscribe to the store changes on component mount
     onMount(() => {
         youSaid = sessionStorage.getItem("youSaid") || "";
         theySaid = sessionStorage.getItem("theySaid") || "";
+        relationship = sessionStorage.getItem("relationship") || "Partner";
+        quality = sessionStorage.getItem("quality") || "helpful";
     });
 
     const handleSubmit = () => {
         sessionStorage.setItem("youSaid", youSaid);
         sessionStorage.setItem("theySaid", theySaid);
+        sessionStorage.setItem("relationship", relationship);
+        sessionStorage.setItem("quality", quality);
         loading = true;
     }
 
@@ -121,7 +125,7 @@
 <form on:submit={handleSubmit} method="POST" action="/result" class="my-2 flex flex-col">
     <label for="yourMessage" class="font-bold">You said</label>
     <div class="join join-horizontal">
-        <input name="yourMessage" type="text" class={`input input-bordered w-full mb-3 join-item`} placeholder="What did you say?" bind:value={youSaid} readonly={loading} />
+        <input name="yourMessage" type="text" class={`input input-bordered w-full mb-3 join-item`} placeholder="What did you say?" bind:value={youSaid} readonly={loading} maxlength=250 />
         <button class={`btn join-item ${recordingYou ? 'btn-primary' : 'btn-neutral'}`} on:click|preventDefault={recordYou} disabled={loadingYou || recordingThem || loading}>
             {#if !recordingYou && !loadingYou}
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -138,7 +142,7 @@
     </div>
     <label for="theirMessage" class="font-bold">They said</label>
     <div class="join join-horizontal">
-        <input name="theirMessage" type="text" class={`input input-bordered w-full mb-3 join-item`} placeholder="What did they say?" bind:value={theySaid} readonly={loading} />
+        <input name="theirMessage" type="text" class={`input input-bordered w-full mb-3 join-item`} placeholder="What did they say?" bind:value={theySaid} readonly={loading} required maxlength=250 />
         <button class={`btn join-item ${recordingThem ? 'btn-primary' : 'btn-neutral'}`} on:click|preventDefault={recordThem} disabled={loadingThem || recordingYou || loading}>
             {#if !recordingThem && !loadingThem}
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -160,7 +164,7 @@
         </div>
         <div class="collapse-content grid grid-cols-1 md:grid-cols-[25%_auto] gap-2 items-center">
             <label for="relationship" class="font-bold">Relationship</label>
-            <select class="select w-full" name="relationship" >
+            <select class="select w-full" name="relationship" bind:value={relationship}>
                 <option selected>Partner</option>
                 <option>Friend</option>
                 <option>Family</option>
@@ -169,8 +173,8 @@
             </select>
             <label for="quality" class="font-bold">Quality</label>
             <div class="join w-full">
-                <input class="join-item btn grow border-primary md:px-8" type="radio" name="quality" aria-label="Helpful" value="helpful" checked />
-                <input class="join-item btn grow border-primary md:px-8" type="radio" name="quality" aria-label="Brutal" value="brutal" />
+                <input class="join-item btn grow border-primary md:px-8" type="radio" name="quality" bind:group={quality} aria-label="Helpful" value="helpful"  checked />
+                <input class="join-item btn grow border-primary md:px-8" type="radio" name="quality" bind:group={quality} aria-label="Brutal" value="brutal" />
             </div>
         </div>
       </div>
