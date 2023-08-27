@@ -170,7 +170,7 @@
             <label for="quality" class="font-bold">Quality</label>
             <div class="join w-full">
                 <input class="join-item btn grow border-primary md:px-8" type="radio" name="quality" aria-label="Helpful" value="helpful" checked />
-                <input class="join-item btn grow border-primary md:px-8" type="radio" name="quality" aria-label="Stupid" value="stupid" />
+                <input class="join-item btn grow border-primary md:px-8" type="radio" name="quality" aria-label="Brutal" value="brutal" />
             </div>
         </div>
       </div>
