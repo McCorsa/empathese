@@ -13,3 +13,9 @@
     {/if}
     <h1 class="text-2xl text-center mb-2 font-bold grow">{title}</h1>
 </header>
+
+<style>
+    header {
+        font-family: 'Gluten', cursive;
+    }
+</style>

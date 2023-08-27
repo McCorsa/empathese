@@ -30,10 +30,10 @@
 
 <DialogueInput disabled={true} yourMessage={form?.yourMessage} theirMessage={form?.theirMessage} />
 
-<h2 class="text-xl text-center my-2">Translation</h2>
+<h2 class="text-xl text-center mt-6 mb-2 font-bold">Translation</h2>
 
-<div class="flex items-center justify-between space-x-4">
-    <p class="mb-4">{form?.translation}</p>
+<div class="flex items-center space-x-4">
+    <p class="grow">{form?.translation}</p>
 
     <button on:click={() => speak(form?.translation)} class={`btn ${playing === form?.translation ? 'btn-primary' : 'btn-neutral'}`}>
         {#if playing !== form?.translation}
@@ -49,7 +49,7 @@
 </div>
 
 
-<h2 class="text-xl text-center my-2">Suggested Responses</h2>
+<h2 class="text-xl text-center mt-6 mb-2 font-bold">Suggested Responses</h2>
 
 <div class="flex flex-col gap-4">
     {#each form?.suggestions as suggestion, i}
