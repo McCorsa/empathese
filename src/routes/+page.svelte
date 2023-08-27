@@ -20,7 +20,9 @@
     }
 
     let recordingYou = false;
+    let loadingYou = false;
     let recordingThem = false;
+    let loadingThem = false;
 
     let chunks = [];
     let mediaRecorder: MediaRecorder;
@@ -49,6 +51,7 @@
                         })
 
                         youSaid = await response.text();
+                        loadingYou = false;
                     }
 
                     mediaRecorder.ondataavailable = (e) => {
@@ -64,6 +67,7 @@
             // when finished, set youSaid to result
             mediaRecorder.stop();
             recordingYou = false;
+            loadingYou = true;
         }
     }
 
@@ -91,6 +95,7 @@
                         })
 
                         theySaid = await response.text();
+                        loadingThem = false;
                     }
 
                     mediaRecorder.ondataavailable = (e) => {
@@ -106,6 +111,7 @@
             // when finished, set youSaid to result
             mediaRecorder.stop();
             recordingThem = false;
+            loadingThem = true;
         }
     }
 </script>
@@ -116,11 +122,13 @@
     <label for="yourMessage" class="font-bold">You said</label>
     <div class="join join-horizontal">
         <input name="yourMessage" type="text" class={`input input-bordered w-full mb-3 join-item`} placeholder="What did you say?" bind:value={youSaid} readonly={loading} />
-        <button class={`btn join-item ${recordingYou ? 'btn-primary' : 'btn-neutral'}`} on:click|preventDefault={recordYou}>
-            {#if !recordingYou}
+        <button class={`btn join-item ${recordingYou ? 'btn-primary' : 'btn-neutral'}`} on:click|preventDefault={recordYou} disabled={loadingYou || recordingThem || loading}>
+            {#if !recordingYou && !loadingYou}
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 01-3-3V4.5a3 3 0 116 0v8.25a3 3 0 01-3 3z" />
                 </svg>
+            {:else if !recordingYou && loadingYou}
+                <span class="loading loading-dots loading-md"></span>
             {:else}
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M5.25 7.5A2.25 2.25 0 017.5 5.25h9a2.25 2.25 0 012.25 2.25v9a2.25 2.25 0 01-2.25 2.25h-9a2.25 2.25 0 01-2.25-2.25v-9z" />
@@ -131,11 +139,13 @@
     <label for="theirMessage" class="font-bold">They said</label>
     <div class="join join-horizontal">
         <input name="theirMessage" type="text" class={`input input-bordered w-full mb-3 join-item`} placeholder="What did they say?" bind:value={theySaid} readonly={loading} />
-        <button class={`btn join-item ${recordingThem ? 'btn-primary' : 'btn-neutral'}`} on:click|preventDefault={recordThem}>
-            {#if !recordingThem}
+        <button class={`btn join-item ${recordingThem ? 'btn-primary' : 'btn-neutral'}`} on:click|preventDefault={recordThem} disabled={loadingThem || recordingYou || loading}>
+            {#if !recordingThem && !loadingThem}
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 01-3-3V4.5a3 3 0 116 0v8.25a3 3 0 01-3 3z" />
                 </svg>
+            {:else if !recordingThem && loadingThem}
+                <span class="loading loading-dots loading-md"></span>
             {:else}
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M5.25 7.5A2.25 2.25 0 017.5 5.25h9a2.25 2.25 0 012.25 2.25v9a2.25 2.25 0 01-2.25 2.25h-9a2.25 2.25 0 01-2.25-2.25v-9z" />
