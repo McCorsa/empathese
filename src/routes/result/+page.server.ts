@@ -48,7 +48,7 @@ export const actions = {
         // API call
         const chatCompletion = await openai.chat.completions.create({
             // model: "gpt-3.5-turbo",
-            model: "gpt-4-0314",
+            model: "gpt-4",
             messages: [
                 {"role": "system", "content": systemMessage},
                 {"role": "user", "content": `I said: ${yourMessage}`},
