@@ -10,7 +10,6 @@ const openai = new OpenAI({
 });
 
 export const POST: RequestHandler = async ({ url, request }) => {
-
     const blob = await request.blob();
 
     if (blob instanceof Blob) {
@@ -24,8 +23,11 @@ export const POST: RequestHandler = async ({ url, request }) => {
         return new Response(String(response.text));
     }
 
-    return {
+    // Create a custom error response
+    const errorResponse = new Response('Invalid audio data', {
         status: 400,
-        body: 'Invalid audio data',
-    };
+        headers: { 'Content-Type': 'text/plain' },
+    });
+
+    return errorResponse;
 }
