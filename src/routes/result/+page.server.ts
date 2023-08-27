@@ -25,8 +25,8 @@ export const actions = {
         const responseQuality = data.get("quality")?.toString().toLowerCase();
 
         let responseQualityString = `You are a helpful conversation companion who helps me understand my conversation with my ${relationship} and uncover what my ${relationship} really means when they says something to me.`;
-        if (responseQuality == "stupid") {
-            responseQualityString = `You are a helpful conversation companion who helps me understand my conversation with my ${relationship} BUT you give the opposite intrepertation to what they actually meant and give insulting response suggestions.`;
+        if (responseQuality == "brutal") {
+            responseQualityString = `You are a helpful conversation companion who helps me understand my conversation with my ${relationship} BUT you give the opposite intrepertation in a brutally harsh manner to what they actually meant and give insulting response suggestions.`;
             // responseQualityString = `You a friend who gives me horrible conversation advice. You have no clue what you're talking about and give answers that completely miss the point.`;
         }
 
