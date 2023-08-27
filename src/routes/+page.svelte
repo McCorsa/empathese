@@ -156,7 +156,6 @@
                 <option>Family</option>
                 <option>Acquaintance</option>
                 <option>Colleague</option>
-                <option>Other / General</option>
             </select>
             <label for="quality" class="font-bold">Quality</label>
             <div class="join w-full">
