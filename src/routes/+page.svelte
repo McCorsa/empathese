@@ -110,7 +110,7 @@
     }
 </script>
 
-<AppBar title="EmpathEase" />
+<AppBar title="💓 Empathese 💓" />
 
 <form on:submit={handleSubmit} method="POST" action="/result" class="my-2 flex flex-col">
     <label for="yourMessage" class="font-bold">You said</label>

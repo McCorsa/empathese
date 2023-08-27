@@ -2,8 +2,6 @@ import { error } from "@sveltejs/kit";
 import type { RequestHandler } from "./$types";
 import { OpenAI } from "openai";
 import dotenv from "dotenv";
-import path from 'path';
-import fs from 'fs';
 dotenv.config();
 
 const openai = new OpenAI({
@@ -16,25 +14,18 @@ export const POST: RequestHandler = async ({ url, request }) => {
     const blob = await request.blob();
 
     if (blob instanceof Blob) {
-        const fileName = 'audio.ogg'; // Change this to the desired filename
-        const filePath = path.join('./static/', fileName);
-        try {
-            const buffer = await blob.arrayBuffer();
-            await fs.promises.writeFile(filePath, new Uint8Array(buffer));
-            console.log('Blob saved as file:', filePath);
-        } catch (error) {
-            console.error('Error saving blob as file:', error);
-            return {
-                status: 500,
-                body: 'Error saving blob as file',
-            };
-        }
+        const file = new File([blob], "audio.ogg", { type: blob.type });
+
+        const response = await openai.audio.transcriptions.create({
+            model: 'whisper-1',
+            file: file,
+        });
+
+        return new Response(String(response.text));
     }
 
-    const response = await openai.audio.transcriptions.create({
-        model: 'whisper-1',
-        file: fs.createReadStream('./static/audio.ogg'),
-    });
-
-    return new Response(String(response.text));
+    return {
+        status: 400,
+        body: 'Invalid audio data',
+    };
 }
