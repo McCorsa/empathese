@@ -143,7 +143,7 @@
             {/if}
         </button>
     </div>
-    <div class="collapse bg-base-200 mb-3">
+    <div class="collapse bg-base-200 mb-6">
         <input type="checkbox" /> 
         <div class="collapse-title text-xl font-medium">
             Advanced options
