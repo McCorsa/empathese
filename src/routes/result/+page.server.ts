@@ -1,12 +1,19 @@
-import type { Actions } from './$types';
+import type { Actions, PageServerLoad } from './$types';
 import OpenAI from 'openai';
 import dotenv from 'dotenv';
+import { redirect } from '@sveltejs/kit';
 dotenv.config();
 
 const openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY,
     organization: process.env.OPENAI_ORG_ID
 });
+
+export const load: PageServerLoad = ({request}) => {
+    if (request.method != "POST") {
+        throw redirect(302, "/");
+    }
+}
 
 export const actions = {
     default: async ({ cookies, request }) => {
