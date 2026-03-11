@@ -1,40 +1,26 @@
 import { error } from "@sveltejs/kit";
 import type { RequestHandler } from "./$types";
-import { GoogleGenAI } from "@google/genai";
+import { OpenAI } from "openai";
 import dotenv from "dotenv";
 dotenv.config();
 
-const apiKey = process.env.GEMINI_API_KEY;
-if (!apiKey) {
-    throw new Error('GEMINI_API_KEY environment variable is not set');
-}
-const ai = new GoogleGenAI({ apiKey });
+const openai = new OpenAI({
+    apiKey: process.env.OPENAI_API_KEY,
+    organization: process.env.OPENAI_ORG_ID
+});
 
 export const POST: RequestHandler = async ({ url, request }) => {
     const blob = await request.blob();
 
     if (blob instanceof Blob) {
-        const arrayBuffer = await blob.arrayBuffer();
-        const base64Audio = Buffer.from(arrayBuffer).toString('base64');
+        const file = new File([blob], "audio.ogg", { type: blob.type });
 
-        const result = await ai.models.generateContent({
-            model: 'gemini-2.5-flash',
-            contents: [
-                {
-                    parts: [
-                        {
-                            inlineData: {
-                                mimeType: blob.type || 'audio/ogg',
-                                data: base64Audio,
-                            },
-                        },
-                        { text: 'Transcribe the audio to text. Only output the transcribed text with no additional commentary.' },
-                    ],
-                },
-            ],
+        const response = await openai.audio.transcriptions.create({
+            model: 'whisper-1',
+            file: file,
         });
 
-        return new Response(result.text ?? '');
+        return new Response(String(response.text));
     }
 
     // Create a custom error response
