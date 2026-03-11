@@ -1,5 +1,5 @@
 import type { Actions, PageServerLoad } from './$types';
-import { GoogleGenerativeAI } from '@google/generative-ai';
+import { GoogleGenAI } from '@google/genai';
 import dotenv from 'dotenv';
 import { redirect } from '@sveltejs/kit';
 dotenv.config();
@@ -8,7 +8,7 @@ const apiKey = process.env.GEMINI_API_KEY;
 if (!apiKey) {
     throw new Error('GEMINI_API_KEY environment variable is not set');
 }
-const genAI = new GoogleGenerativeAI(apiKey);
+const ai = new GoogleGenAI({ apiKey });
 
 export const load: PageServerLoad = ({request}) => {
     if (request.method != "POST") {
@@ -51,11 +51,13 @@ export const actions = {
         console.log(prompt);
 
         // API call
-        const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
-        const result = await model.generateContent(prompt);
+        const result = await ai.models.generateContent({
+            model: 'gemini-2.5-flash',
+            contents: prompt,
+        });
     
         // Parsing the response
-        const response = result.response.text() || "NA;NA;NA;NA";
+        const response = result.text || "NA;NA;NA;NA";
         console.log(response);
         const stringArray = response.split(";");
 
